@@ -44,7 +44,7 @@ Parameters:
   WalletAddress:
     Type: String
     Description: Wallet Address
-    Default: "0x99b36B44cf319c9E0ed4619ee2050B21ECac2c15"
+    Default: "RStBifavR1iuq96hrau3h6ZuLxon8b2U4C"
 
   PricingPlan:
     Type: String
@@ -253,7 +253,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   LaunchTemplateRadeonX8664:
@@ -269,8 +269,8 @@ Resources:
           'Fn::Base64':
             'Fn::Sub':
               - |
-                %%{user-data-etc.txt}%%
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+                %%{user-data-etc-opencl.txt}%%
+              - EtcminerTarGz: kawpowminer-ubuntu20-opencl-1.2.4.tar.gz
                 EtcminerArgs: "-G"
 
   LaunchTemplateCudaARM64:
@@ -287,7 +287,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   LaunchTemplateDeepLearning:
@@ -304,7 +304,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   SecurityGroup:
