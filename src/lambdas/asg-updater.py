@@ -7,7 +7,7 @@
 # - AsgName
 # - DesiredCapacity
 
-# Author: Michael Ludvig -- https://github.com/mludvig/aws-ethereum-miner
+# Author: Michael Ludvig -- https://github.com/jekpot1337xOut/aws-ethereum-miner
 
 import json
 import boto3
