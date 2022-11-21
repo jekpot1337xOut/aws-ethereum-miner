@@ -1,0 +1,28 @@
+#!/bin/bash -x
+cd /tmp
+AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
+INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
+wget -O kawpowminer.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+tar xvfz kawpowminer.tar.gz
+cd linux-ubuntu20-cuda11-1.2.4
+case ${!AZID:0:1} in
+  u) PREFERRED_SERVER="us-rvn";;
+  e) PREFERRED_SERVER="rvn";;
+  a) PREFERRED_SERVER="asia-rvn";;
+  *) PREFERRED_SERVER="us-rvn";;
+esac
+cat > runner.sh << __EOF__
+#!/bin/bash -x
+while (true); do
+  ./kawpowminer ${EtcminerArgs} --exit \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@asia-rvn.2miners.com:6060 \
+  >> /tmp/etcminer.log 2>&1
+  sleep 1
+done
+__EOF__
+chmod +x runner.sh
+nohup ./runner.sh &
