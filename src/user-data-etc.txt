@@ -15,11 +15,11 @@ cat > runner.sh << __EOF__
 #!/bin/bash -x
 while (true); do
   ./nbminer ${EtcminerArgs} --exit \
-    -P stratum1+tcp://${EthWallet}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
-    -P stratum1+tcp://${EthWallet}.${AWS::Region}@us-rvn.2miners.com:6060 \
-    -P stratum1+tcp://${EthWallet}.${AWS::Region}@us-rvn.2miners.com:6060 \
-    -P stratum1+tcp://${EthWallet}.${AWS::Region}@rvn.2miners.com:6060 \
-    -P stratum1+tcp://${EthWallet}.${AWS::Region}@asia-rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@rvn.2miners.com:6060 \
+    -P stratum1+tcp://${WalletAddress}.${AWS::Region}@asia-rvn.2miners.com:6060 \
   >> /tmp/etcminer.log 2>&1
   sleep 1
 done
