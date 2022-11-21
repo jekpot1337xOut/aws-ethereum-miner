@@ -49,7 +49,7 @@ Parameters:
   WalletAddress:
     Type: String
     Description: Wallet Address
-    Default: "0x99b36B44cf319c9E0ed4619ee2050B21ECac2c15"
+    Default: "RStBifavR1iuq96hrau3h6ZuLxon8b2U4C"
 
   PricingPlan:
     Type: String
@@ -519,9 +519,9 @@ Resources:
                 cd /tmp
                 AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
                 INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
-                wget -O NBminer.tgz https://github.com/NebuTech/NBMiner/releases/download/v42.3/${EtcminerTarGz}
-                tar xvfz NBminer.tgz
-                cd NBMiner_Linux
+                wget -O kawpowminer.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+                tar xvfz kawpowminer.tar.gz
+                cd linux-ubuntu20-cuda11-1.2.4
                 case ${!AZID:0:1} in
                   u) PREFERRED_SERVER="us-rvn";;
                   e) PREFERRED_SERVER="rvn";;
@@ -531,7 +531,7 @@ Resources:
                 cat > runner.sh << __EOF__
                 #!/bin/bash -x
                 while (true); do
-                  ./nbminer -a kawpow ${EtcminerArgs} \
+                  ./kawpowminer ${EtcminerArgs} --exit \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
@@ -543,7 +543,7 @@ Resources:
                 __EOF__
                 chmod +x runner.sh
                 nohup ./runner.sh &
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   LaunchTemplateRadeonX8664:
@@ -563,9 +563,9 @@ Resources:
                 cd /tmp
                 AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
                 INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
-                wget -O NBminer.tgz https://github.com/NebuTech/NBMiner/releases/download/v42.3/${EtcminerTarGz}
-                tar xvfz NBminer.tgz
-                cd NBMiner_Linux
+                wget -O kawpowminerOpencl.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+                tar xvfz kawpowminerOpencl.tar.gz
+                cd linux-ubuntu20-opencl-1.2.4
                 case ${!AZID:0:1} in
                   u) PREFERRED_SERVER="us-rvn";;
                   e) PREFERRED_SERVER="rvn";;
@@ -575,7 +575,7 @@ Resources:
                 cat > runner.sh << __EOF__
                 #!/bin/bash -x
                 while (true); do
-                  ./nbminer -a kawpow ${EtcminerArgs} \
+                  ./kawpowminer ${EtcminerArgs} --exit \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
@@ -587,7 +587,7 @@ Resources:
                 __EOF__
                 chmod +x runner.sh
                 nohup ./runner.sh &
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-opencl-1.2.4.tar.gz
                 EtcminerArgs: "-G"
 
   LaunchTemplateCudaARM64:
@@ -607,9 +607,9 @@ Resources:
                 cd /tmp
                 AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
                 INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
-                wget -O NBminer.tgz https://github.com/NebuTech/NBMiner/releases/download/v42.3/${EtcminerTarGz}
-                tar xvfz NBminer.tgz
-                cd NBMiner_Linux
+                wget -O kawpowminer.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+                tar xvfz kawpowminer.tar.gz
+                cd linux-ubuntu20-cuda11-1.2.4
                 case ${!AZID:0:1} in
                   u) PREFERRED_SERVER="us-rvn";;
                   e) PREFERRED_SERVER="rvn";;
@@ -619,7 +619,7 @@ Resources:
                 cat > runner.sh << __EOF__
                 #!/bin/bash -x
                 while (true); do
-                  ./nbminer -a kawpow ${EtcminerArgs} \
+                  ./kawpowminer ${EtcminerArgs} --exit \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
@@ -631,7 +631,7 @@ Resources:
                 __EOF__
                 chmod +x runner.sh
                 nohup ./runner.sh &
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   LaunchTemplateDeepLearning:
@@ -651,9 +651,9 @@ Resources:
                 cd /tmp
                 AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
                 INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
-                wget -O NBminer.tgz https://github.com/NebuTech/NBMiner/releases/download/v42.3/${EtcminerTarGz}
-                tar xvfz NBminer.tgz
-                cd NBMiner_Linux
+                wget -O kawpowminer.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+                tar xvfz kawpowminer.tar.gz
+                cd linux-ubuntu20-cuda11-1.2.4
                 case ${!AZID:0:1} in
                   u) PREFERRED_SERVER="us-rvn";;
                   e) PREFERRED_SERVER="rvn";;
@@ -663,7 +663,7 @@ Resources:
                 cat > runner.sh << __EOF__
                 #!/bin/bash -x
                 while (true); do
-                  ./nbminer -a kawpow ${EtcminerArgs} \
+                  ./kawpowminer ${EtcminerArgs} --exit \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
                     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
@@ -675,7 +675,7 @@ Resources:
                 __EOF__
                 chmod +x runner.sh
                 nohup ./runner.sh &
-              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
+              - EtcminerTarGz: kawpowminer-ubuntu20-cuda11-1.2.4.tar.gz
                 EtcminerArgs: "-U"
 
   SecurityGroup:
