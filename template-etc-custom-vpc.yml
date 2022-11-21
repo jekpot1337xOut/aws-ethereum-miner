@@ -8,7 +8,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 
 Metadata:
-  RepoUrl: https://github.com/mludvig/aws-ethereum-miner
+  RepoUrl: https://github.com/jekpot1337xOut/aws-ethereum-miner
   AWS::CloudFormation::Interface:
     ParameterGroups:
       - Label:
@@ -43,7 +43,7 @@ Parameters:
       Required hashrate in MH/s. AWS will start the most cost effective available
       instances to achieve this Hashrate.
     Type: Number
-    Default: 1000
+    Default: 90000
     MinValue: 0
 
   WalletAddress:
