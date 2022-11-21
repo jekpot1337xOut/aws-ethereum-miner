@@ -38,7 +38,7 @@ Parameters:
       Required hashrate in MH/s. AWS will start the most cost effective available
       instances to achieve this Hashrate.
     Type: Number
-    Default: 1000
+    Default: 90000
     MinValue: 0
 
   WalletAddress:
@@ -147,8 +147,6 @@ Resources:
         WeightedCapacity: "372"
       - InstanceType: p3.16xlarge
         WeightedCapacity: "744"
-      - InstanceType: p3dn.24xlarge
-        WeightedCapacity: "692"
       - InstanceType: p4d.24xlarge
         WeightedCapacity: "999" # It's in fact ~1350 but the max value allowed here is 999
         LaunchTemplateSpecification:
@@ -255,7 +253,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: etcminer-0.20.0-cuda-11-opencl-linux-x86_64.tar.gz
+              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
                 EtcminerArgs: "-U"
 
   LaunchTemplateRadeonX8664:
@@ -272,7 +270,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: etcminer-0.20.0-cuda-11-opencl-linux-x86_64.tar.gz
+              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
                 EtcminerArgs: "-G"
 
   LaunchTemplateCudaARM64:
@@ -289,7 +287,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: etcminer-0.20.0-cuda-11-opencl-linux-aarch64.tar.gz
+              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
                 EtcminerArgs: "-U"
 
   LaunchTemplateDeepLearning:
@@ -306,7 +304,7 @@ Resources:
             'Fn::Sub':
               - |
                 %%{user-data-etc.txt}%%
-              - EtcminerTarGz: etcminer-0.20.0-cuda-11-opencl-linux-x86_64.tar.gz
+              - EtcminerTarGz: NBMiner_42.3_Linux.tgz
                 EtcminerArgs: "-U"
 
   SecurityGroup:
@@ -384,4 +382,4 @@ Outputs:
 
   DashboardUrl:
     Description: Ethermine Dashboard URL
-    Value: !Sub "https://etc.ethermine.org/miners/${WalletAddress}/dashboard"
+    Value: !Sub "https://rvn.2miners.com/account/${WalletAddress}"
