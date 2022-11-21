@@ -14,7 +14,7 @@ esac
 cat > runner.sh << __EOF__
 #!/bin/bash -x
 while (true); do
-  ./nbminer ${EtcminerArgs} --exit \
+  ./kawpowminer ${EtcminerArgs} --exit \
     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@${!PREFERRED_SERVER}.2miners.com:6060 \
     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
     -P stratum1+tcp://${WalletAddress}.${AWS::Region}@us-rvn.2miners.com:6060 \
