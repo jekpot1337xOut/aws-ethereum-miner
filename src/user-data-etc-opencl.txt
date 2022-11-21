@@ -2,9 +2,9 @@
 cd /tmp
 AZID=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone-id | cut -d- -f1)
 INSTTYPE=$(curl -s http://169.254.169.254/latest/meta-data/instance-type)
-wget -O kawpowminer.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
-tar xvfz kawpowminer.tar.gz
-cd linux-ubuntu20-cuda11-1.2.4
+wget -O kawpowminerOpencl.tar.gz https://github.com/RavenCommunity/kawpowminer/releases/download/1.2.4/${EtcminerTarGz}
+tar xvfz kawpowminerOpencl.tar.gz
+cd linux-ubuntu20-opencl-1.2.4
 case ${!AZID:0:1} in
   u) PREFERRED_SERVER="us-rvn";;
   e) PREFERRED_SERVER="rvn";;
